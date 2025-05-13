@@ -185,6 +185,6 @@ for upgrade_level = 1, #upgrade_costs_galactic_gunner do
 end
 
 -- Wait for 30 seconds before restarting
-wait(30)
+wait(60)
 RestartEvent:FireServer()
 print("Restarted the game after 30 seconds.")
