@@ -45,22 +45,22 @@ local tower_coordinates = {
 	{name = "Arsenal", coords = CFrame.new(18.12893295288086, -0.9000020027160645, 26.616981506347656)}, -- Tower 9
 	-- Boombox (Tower 10)
 	{name = "Boombox", coords = CFrame.new(23.166711807250977, -0.9000020027160645, 25.23324203491211)}, -- Tower 10
-	-- Galactic Gunner (Tower 11)
-	{name = "Galactic Gunner", coords = CFrame.new(13.817549705505371, -0.9000020027160645, 22.14163589477539)}, -- Tower 11
+	-- Heavy Gunner (Tower 11)
+	{name = "Heavy Gunner", coords = CFrame.new(13.817549705505371, -0.9000020027160645, 22.14163589477539)}, -- Tower 11
 }
 
 local tower_costs = {
 	["Battler"] = 200,
 	["Arsenal"] = 600,
 	["Boombox"] = 1000,
-	["Galactic Gunner"] = 2250,
+	["Heavy Gunner"] = 4950,
 }
 
 local upgrade_costs = {
 	["Battler"] = {150, 400},       -- 2 upgrades
 	["Arsenal"] = {1000, 2200, 5000, 10000}, -- 4 upgrades
 	["Boombox"] = {2200, 5000},      -- 2 upgrades
-	["Galactic Gunner"] = {4750, 12500}, -- 2 upgrades
+	["Heavy Gunner"] = {5525, 8000}, -- 2 upgrades
 }
 
 local placed_towers = {}
@@ -160,31 +160,31 @@ for i = 8, 9 do
 	end
 end
 
--- Place and upgrade the Galactic Gunner twice
-local galactic_gunner_info = tower_coordinates[11]
-local galactic_gunner_name = galactic_gunner_info.name
-local galactic_gunner_placement_cost = tower_costs[galactic_gunner_name]
+-- Place and upgrade the Heavy Gunner twice
+local heavy_gunner_info = tower_coordinates[11]
+local heavy_gunner_name = heavy_gunner_info.name
+local heavy_gunner_placement_cost = tower_costs[heavy_gunner_name]
 
-wait_for_cash(galactic_gunner_placement_cost)
-local args = {galactic_gunner_name, galactic_gunner_info.coords}
+wait_for_cash(heavy_gunner_placement_cost)
+local args = {heavy_gunner_name, heavy_gunner_info.coords}
 execute_placement(args)
-Cash.Value = Cash.Value - galactic_gunner_placement_cost
-local placed_galactic_gunner = TowersFolder:WaitForChild("11")
-table.insert(placed_towers, placed_galactic_gunner)
-print(string.format("Placed %s (Tower 11) for %d cash. Remaining cash: %d", galactic_gunner_name, galactic_gunner_placement_cost, Cash.Value))
+Cash.Value = Cash.Value - heavy_gunner_placement_cost
+local placed_heavy_gunner = TowersFolder:WaitForChild("11")
+table.insert(placed_towers, placed_heavy_gunner)
+print(string.format("Placed %s (Tower 11) for %d cash. Remaining cash: %d", heavy_gunner_name, heavy_gunner_placement_cost, Cash.Value))
 
--- Upgrade the Galactic Gunner twice
-local upgrade_costs_galactic_gunner = upgrade_costs["Galactic Gunner"]
-for upgrade_level = 1, #upgrade_costs_galactic_gunner do
-	local upgrade_cost = upgrade_costs_galactic_gunner[upgrade_level]
+-- Upgrade the Heavy Gunner twice
+local upgrade_costs_heavy_gunner = upgrade_costs["Heavy Gunner"]
+for upgrade_level = 1, #upgrade_costs_heavy_gunner do
+	local upgrade_cost = upgrade_costs_heavy_gunner[upgrade_level]
 	wait_for_cash(upgrade_cost)
-	local args = {placed_galactic_gunner, placed_galactic_gunner.CFrame, true} -- Assuming 'true' for upgrade
+	local args = {placed_heavy_gunner, placed_heavy_gunner.CFrame, true} -- Assuming 'true' for upgrade
 	execute_placement(args)
 	Cash.Value = Cash.Value - upgrade_cost
-	print(string.format("Upgraded Galactic Gunner (Tower 11) level %d for %d cash. Remaining cash: %d", upgrade_level, upgrade_cost, Cash.Value))
+	print(string.format("Upgraded %s (Tower 11) level %d for %d cash. Remaining cash: %d", heavy_gunner_name, upgrade_level, upgrade_cost, Cash.Value))
 end
 
 -- Wait for 30 seconds before restarting
-wait(60)
+wait(30)
 RestartEvent:FireServer()
 print("Restarted the game after 30 seconds.")
